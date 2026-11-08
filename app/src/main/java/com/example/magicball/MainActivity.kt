@@ -81,7 +81,7 @@ fun MagicBallGame() {
             verticalArrangement = Arrangement.spacedBy(22.dp)
         ) {
             Text(
-                text = "✦ MAGIC BALL BY CASPERIN✦",
+                text = "✦ WELCOME TO CASPER'S MAGIC BALL! ✦",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFFE5C6FF)
