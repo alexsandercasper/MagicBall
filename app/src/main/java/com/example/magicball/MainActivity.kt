@@ -1,5 +1,7 @@
+
 package com.example.magicball
 
+import androidx.compose.ui.graphics.drawscope.drawCircle
 import androidx.compose.foundation.Canvas
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.drawLine
@@ -285,4 +287,6 @@ fun MagicBallGame() {
             }
         }
     }
+        }
     }
+ } 
