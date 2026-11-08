@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-    @Composable
+@Composable
 fun StarryBackground() {
     val stars = remember {
         List(200) {
@@ -81,15 +81,16 @@ fun StarryBackground() {
                 center = it
             )
         }
-
-    drawLine(
-    color = Color.White,
-    start = Offset(shootingX, shootingY),
-    end = Offset(shootingX - 150f, shootingY - 75f),
-    strokeWidth = 4f
-) 
-  }
+    
+        drawLine(
+            color = Color.White,
+            start = Offset(shootingX, shootingY),
+            end = Offset(shootingX - 150f, shootingY - 75f),
+            strokeWidth = 4f
+        ) 
+    }
 }
+
 @Composable
 fun MagicBallGame() {
     var question by remember { mutableStateOf("") }
