@@ -1,6 +1,9 @@
-
 package com.example.magicball
 
+import androidx.compose.foundation.Canvas
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.drawscope.drawLine
+import kotlin.random.Random
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,12 +31,63 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             MagicBallGame()
         }
     }
 }
 
+    @Composable
+fun StarryBackground() {
+    val stars = remember {
+        List(200) {
+            Offset(
+                Random.nextFloat() * 2000f,
+                Random.nextFloat() * 4000f
+            )
+        }
+    }
+            
+
+    var shootingX by remember { mutableStateOf(-300f) }
+    var shootingY by remember { mutableStateOf(250f) }
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay((3000..7000).random().toLong())
+
+            shootingX = -200f
+            shootingY = Random.nextInt(100, 900).toFloat()
+
+            while (shootingX < 2200f) {
+                shootingX += 40f
+                shootingY += 18f
+                delay(16)
+            }
+        }
+    }
+
+    Canvas(
+        modifier = Modifier.fillMaxSize()
+    ) {
+
+        stars.forEach {
+            drawCircle(
+                color = Color.White,
+                radius = Random.nextFloat() * 2f + 1f,
+                center = it
+            )
+        }
+
+    drawLine(
+    color = Color.White,
+    start = Offset(shootingX, shootingY),
+    end = Offset(shootingX - 150f, shootingY - 75f),
+    strokeWidth = 4f
+) 
+  }
+}
 @Composable
 fun MagicBallGame() {
     var question by remember { mutableStateOf("") }
@@ -61,22 +115,37 @@ fun MagicBallGame() {
 
     val scope = rememberCoroutineScope()
 
+   Box(
+    modifier = Modifier.fillMaxSize()
+) {
+
+    // Night sky background
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .matchParentSize()
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFF100824),
-                        Color(0xFF29104C),
-                        Color(0xFF09051B)
+                        Color(0xFF02030A),
+                        Color(0xFF08122E),
+                        Color(0xFF000814)
                     )
                 )
             )
+    )
+
+    // Stars and shooting stars
+    StarryBackground()
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
             .padding(24.dp),
         contentAlignment = Alignment.Center
     ) {
-        Column(
+
+       
+         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(22.dp)
         ) {
@@ -216,4 +285,4 @@ fun MagicBallGame() {
             }
         }
     }
-}
+    }
